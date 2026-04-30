@@ -61,10 +61,12 @@ class Head(Turtle):
         if self.xcor() > 240 or self.xcor() < -240 or self.ycor() > 240 or self.ycor() < -240:
             self.hideturtle()
             self.alive = False
+            
     def collision(self):
         for i in body:
-            if i.distance(head)<20:
-                self.alive=False
+            if i.distance(self) < 20:
+                self.alive = False
+
 class Apple(Turtle):
     def __init__(self):
         super().__init__()
@@ -101,9 +103,10 @@ def update():
         if head.distance(apple) < 20:
             apple.goto(random.randint(-230, 230), random.randint(-230, 230))
             Segment(head)
-        if len(body)>0:
+        if len(body) > 0:
             body[0].move(head)
         head.move()
+        head.collision()
     screen.ontimer(update, 30)
 
 screen = Screen()
@@ -116,10 +119,4 @@ head = Head(screen)
 apple = Apple()
 
 update()
-collision()
 screen.exitonclick()
-
-
-
-
-
